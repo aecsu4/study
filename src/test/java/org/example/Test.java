@@ -3,7 +3,7 @@ import org.junit.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-public class test {
+public class Test {
     public static WebDriver browser;
     PageObjectsModel start = new PageObjectsModel(browser);
 
@@ -13,7 +13,7 @@ public class test {
 
     }
 
-    @Test
+    @org.junit.Test
 
     public void test1(){
         browser.get("https://www.google.com/");
@@ -28,7 +28,7 @@ public class test {
 
     }
 
-    @Test
+    @org.junit.Test
 
     public void test2(){
         browser.get("https://www.google.com/");
@@ -38,7 +38,7 @@ public class test {
 
     }
 
-    @Test
+    @org.junit.Test
 
     public void test3(){
         browser.get("https://www.google.com/");
