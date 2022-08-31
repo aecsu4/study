@@ -2,8 +2,15 @@ package org.example;
 import org.junit.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.PageFactory;
 public class PageObjectsModel {
+
+    PageObjectsModel(WebDriver browser) {
+        System.setProperty("webdriver.chrome.driver", ".\\lib\\chromedriver.exe");
+        PageFactory.initElements(browser, this);
+    }
     public PageObjectsModel pressButton(String nameOfButton) {
         test.browser.findElement(By.xpath("//*[contains(@class, 'XRsWPe') and text() = '"+ nameOfButton + "'] ")).click();
         return this;

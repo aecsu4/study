@@ -5,10 +5,10 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class test {
     public static WebDriver browser;
-    PageObjectsModel start = new PageObjectsModel();
+    PageObjectsModel start = new PageObjectsModel(browser);
+
     @Before
     public void before(){
-        System.setProperty("webdriver.chrome.driver", ".\\lib\\chromedriver.exe");
         browser = new ChromeDriver();
 
     }
@@ -17,21 +17,14 @@ public class test {
 
     public void test1(){
         browser.get("https://www.google.com/");
-        start.findInGoogle("Калькулятор");
-        start.pressButton("(");
-        start.pressButton("1");
-        start.pressButton("+");
-        start.pressButton("2");
-        start.pressButton(")");
-        start.pressButton("×");
-        start.pressButton("3");
-        start.pressButton("−");
-        start.pressButton("4");
-        start.pressButton("0");
-        start.pressButton("÷");
-        start.pressButton("5");
-        start.pressButton("=");
-        start.result("1");
+        start.findInGoogle("Калькулятор").pressButton("(")
+                .pressButton("1").pressButton("+")
+                .pressButton("2").pressButton(")")
+                .pressButton("×").pressButton("3")
+                .pressButton("−").pressButton("4")
+                .pressButton("0").pressButton("÷")
+                .pressButton("5").pressButton("=")
+                .result("1");
 
     }
 
@@ -39,24 +32,20 @@ public class test {
 
     public void test2(){
         browser.get("https://www.google.com/");
-        start.findInGoogle("Калькулятор");
+        start.findInGoogle("Калькулятор").pressButton("6")
+                .pressButton("÷").pressButton("0")
+                .pressButton("=").result("Infinity");
 
-        start.pressButton("6");
-        start.pressButton("÷");
-        start.pressButton("0");
-        start.pressButton("=");
-        start.result("Infinity");
     }
 
     @Test
 
     public void test3(){
         browser.get("https://www.google.com/");
-        start.findInGoogle("Калькулятор");
+        start.findInGoogle("Калькулятор")
+                .pressButton("sin").pressButton("=")
+                .result("Error");
 
-        start.pressButton("sin");
-        start.pressButton("=");
-        start.result("Error");
     }
     @After
 
