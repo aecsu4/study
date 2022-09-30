@@ -3,49 +3,48 @@ import org.junit.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-public class Test {
+public class TestCalculator {
     public static WebDriver browser;
-    PageObjectsModel start = new PageObjectsModel(browser);
+    public static PageObjectsModel start;
 
     @Before
     public void before(){
+        System.setProperty("webdriver.chrome.driver", ".\\lib\\chromedriver.exe");
         browser = new ChromeDriver();
+        start = new PageObjectsModel(browser);
 
     }
 
-    @org.junit.Test
+    @Test
 
     public void test1(){
         browser.get("https://www.google.com/");
-        start.findInGoogle("Калькулятор").pressButton("(")
+        start.findInGooglePage("Калькулятор").pressButton("(")
                 .pressButton("1").pressButton("+")
                 .pressButton("2").pressButton(")")
                 .pressButton("×").pressButton("3")
                 .pressButton("−").pressButton("4")
                 .pressButton("0").pressButton("÷")
                 .pressButton("5").pressButton("=")
-                .result("1");
-
+                .assertResult("1");
     }
 
-    @org.junit.Test
+    @Test
 
     public void test2(){
         browser.get("https://www.google.com/");
-        start.findInGoogle("Калькулятор").pressButton("6")
+        start.findInGooglePage("Калькулятор").pressButton("6")
                 .pressButton("÷").pressButton("0")
-                .pressButton("=").result("Infinity");
-
+                .pressButton("=").assertResult("Infinity");
     }
 
-    @org.junit.Test
+    @Test
 
     public void test3(){
         browser.get("https://www.google.com/");
-        start.findInGoogle("Калькулятор")
+        start.findInGooglePage("Калькулятор")
                 .pressButton("sin").pressButton("=")
-                .result("Error");
-
+                .assertResult("Error");
     }
     @After
 
