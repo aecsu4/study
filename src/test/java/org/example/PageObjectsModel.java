@@ -23,7 +23,7 @@ public class PageObjectsModel {
         browser.findElement(By.xpath("//input[contains(@title, 'Поиск')]")).sendKeys(text, Keys.ENTER);
         return this;
     }
-    
+
     public void assertResult(String excepted) {
         String actual = browser.findElement(By.xpath("//*[contains(@class, 'qv3Wpe') and text()]")).getText();
         Assert.assertEquals("TestCalculator failed dolbojeb ", excepted, actual);

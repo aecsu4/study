@@ -12,7 +12,6 @@ public class TestCalculator {
         System.setProperty("webdriver.chrome.driver", ".\\lib\\chromedriver.exe");
         browser = new ChromeDriver();
         start = new PageObjectsModel(browser);
-
     }
 
     @Test
