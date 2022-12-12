@@ -25,7 +25,7 @@ public class TestMail {
         mailListPage.actualMailCheck();
         mailListPage.sendMail("Simbir soft", mailListPage.actualMailCheck().expectedMailNumber);
         Assert.assertEquals("Test is failed. Actual mail number is wrong ", mailListPage.actualMailCheck()
-                .oldMailsNumberStr, mailListPage.actualMailCheck().currentMailNumber);
+                .oldMailNumberStr, mailListPage.actualMailCheck().currentMailNumber);
     }
 
     @After
