@@ -1,38 +1,35 @@
 package org.example;
 import org.junit.*;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import java.util.concurrent.TimeUnit;
 
 public class TestMail {
     public static WebDriver browser;
-    public static LoginPage LoginPage;
-    public static MailListPage MailListPage;
-    public String expectedMailsNumber;
-    By numberMails = MailListPage.numberMails;
+    public static LoginPage loginPage;
+    public static MailListPage mailListPage;
 
     @Before
     public void before(){
         System.setProperty("webdriver.chrome.driver", ".\\lib\\chromedriver.exe");
         browser = new ChromeDriver();
-        LoginPage = new LoginPage(browser);
-        MailListPage = new MailListPage(browser);
+        browser.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        loginPage = new LoginPage(browser);
+        mailListPage = new MailListPage(browser);
     }
 
     @Test
     public void test(){
         browser.get("https://yandex.ru/mail");
-        LoginPage.loginToYandex("todayna228","64242011qqQ");
-        String oldMailsNumberStr = browser.findElement(numberMails).getText();
-        String expectedMailsNumber = Integer.toString(Integer.parseInt(oldMailsNumberStr)+1);
-        this.expectedMailsNumber = expectedMailsNumber;
-        MailListPage.sendMail("Simbir soft", expectedMailsNumber);
+        loginPage.loginToYandex("todayna228","64242011qqQ");
+        mailListPage.actualMailCheck();
+        mailListPage.sendMail("Simbir soft", mailListPage.actualMailCheck().expectedMailNumber);
+        Assert.assertEquals("Test is failed. Actual mail number is wrong ", mailListPage.actualMailCheck()
+                .oldMailsNumberStr, mailListPage.actualMailCheck().currentMailNumber);
     }
 
     @After
     public void after(){
-        String actual = browser.findElement(numberMails).getText();
-        Assert.assertEquals("Test is failed. Actual mail number is wrong ", actual, expectedMailsNumber);
         browser.close();
     }
 }

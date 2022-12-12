@@ -1,26 +1,31 @@
 package org.example;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-import java.util.concurrent.TimeUnit;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 public class LoginPage {
     private final WebDriver browser;
-    //Записываю xpath и css селекторы в строку
-    By entranceToMailButton = By.xpath("//*[@type = 'button' and @weight = '500']");
-    By loginInput = By.xpath("//*[@id='passp-field-login']");
-    By passInput = By.xpath("//*[@id='passp-field-passwd']");
-    By loginWithMailSelector = By.xpath("//*[@type = 'button'][1]");
+    @FindBy(css = "button[autocomplete]")
+    private WebElement entranceToMailButton;
+    @FindBy(css = "input[id='passp-field-login']")
+    private WebElement loginInput;
+    @FindBy(css = "input[name='passwd']")
+    private WebElement passInput;
+    @FindBy(css = "button[data-t='button:default']")
+    private WebElement loginWithMailSelector;
+
     public LoginPage(WebDriver browser) {
         this.browser = browser;
+        PageFactory.initElements(browser, this);
     }
 
     public LoginPage loginToYandex(String login, String pass){
-        browser.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        browser.findElement(entranceToMailButton).click();
-        browser.findElement(loginWithMailSelector).click();
-        browser.findElement(loginInput).sendKeys(login, Keys.ENTER);
-        browser.findElement(passInput).sendKeys(pass, Keys.ENTER);
+        entranceToMailButton.click();
+        loginWithMailSelector.click();
+        loginInput.sendKeys(login, Keys.ENTER);
+        passInput.sendKeys(pass, Keys.ENTER);
         return this;
     }
 }
