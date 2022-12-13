@@ -8,8 +8,8 @@ public class TestMail {
     public static WebDriver browser;
     public static LoginPage loginPage;
     public static MailListPage mailListPage;
-    public static MailListPage oldMailNumber;
-    public static MailListPage newMailNumber;
+    public String yandexMailLogin = LogPassData.yandexMailLogin;
+    public String yandexMailPass = LogPassData.yandexMailPass;
 
     @Before
     public void before(){
@@ -23,10 +23,10 @@ public class TestMail {
     @Test
     public void test(){
         browser.get("https://yandex.ru/mail");
-        loginPage.loginToYandex("todayna228","64242011qqQ");
-        int oldMailNumber = mailListPage.actualMailCheck();
+        loginPage.loginToYandex(yandexMailLogin,yandexMailPass);
+        int oldMailNumber = mailListPage.mailNumberGet();
         mailListPage.sendMail("Simbir soft", Integer.toString(oldMailNumber+1));
-        int newMailNumber = mailListPage.actualMailCheck();
+        int newMailNumber = mailListPage.mailNumberGet();
         Assert.assertEquals("Test is failed. Actual mail number is wrong ", oldMailNumber+1, newMailNumber);
     }
 

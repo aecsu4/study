@@ -42,7 +42,7 @@ public class MailListPage {
         return this;
     }
 
-    public int actualMailCheck() {
+    public int mailNumberGet() {
         return Integer.parseInt(numberMails.getText());
     }
 }
