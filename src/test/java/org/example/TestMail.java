@@ -8,6 +8,8 @@ public class TestMail {
     public static WebDriver browser;
     public static LoginPage loginPage;
     public static MailListPage mailListPage;
+    public static MailListPage oldMailNumber;
+    public static MailListPage newMailNumber;
 
     @Before
     public void before(){
@@ -22,10 +24,10 @@ public class TestMail {
     public void test(){
         browser.get("https://yandex.ru/mail");
         loginPage.loginToYandex("todayna228","64242011qqQ");
-        mailListPage.actualMailCheck();
-        mailListPage.sendMail("Simbir soft", mailListPage.actualMailCheck().expectedMailNumber);
-        Assert.assertEquals("Test is failed. Actual mail number is wrong ", mailListPage.actualMailCheck()
-                .oldMailNumberStr, mailListPage.actualMailCheck().currentMailNumber);
+        int oldMailNumber = mailListPage.actualMailCheck();
+        mailListPage.sendMail("Simbir soft", Integer.toString(oldMailNumber+1));
+        int newMailNumber = mailListPage.actualMailCheck();
+        Assert.assertEquals("Test is failed. Actual mail number is wrong ", oldMailNumber+1, newMailNumber);
     }
 
     @After

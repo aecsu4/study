@@ -23,9 +23,7 @@ public class MailListPage {
     public WebElement sendMailButton;
     @FindBy(css = "[class='control link link_theme_normal ComposeDoneScreen-Link']")
     public WebElement returnMainPage;
-    public String oldMailNumberStr;
-    public String expectedMailNumber;
-    public String currentMailNumber;
+    public int mailNumber;
 
     public MailListPage(WebDriver browser) {
         this.browser = browser;
@@ -44,13 +42,7 @@ public class MailListPage {
         return this;
     }
 
-    public MailListPage actualMailCheck() {
-        String oldMailsNumberStr = numberMails.getText();
-        String expectedMailsNumber = Integer.toString(Integer.parseInt(oldMailsNumberStr)+1);
-        String currentMailNumber = numberMails.getText();
-        this.oldMailNumberStr = oldMailsNumberStr;
-        this.expectedMailNumber = expectedMailsNumber;
-        this.currentMailNumber = currentMailNumber;
-        return this;
+    public int actualMailCheck() {
+        return Integer.parseInt(numberMails.getText());
     }
 }
