@@ -7,21 +7,21 @@ import org.openqa.selenium.support.PageFactory;
 
 public class MailListPage {
     private final WebDriver browser;
-    @FindBy(css = "span[class='Counters-m__total--WD+FS qa-LeftColumn-CountersTotal']")
+    @FindBy(css = ".qa-LeftColumn-CountersTotal")
     public WebElement numberMails;
     @FindBy(css = "a[href='#compose']")
     public WebElement writeNewMailButton;
     @FindBy(css = "div[title='Кому']")
     public WebElement adressInput;
-    @FindBy(css = "div[class='ContactsSuggestItemDesktop-Email']")
+    @FindBy(className = "ContactsSuggestItemDesktop")
     public WebElement myAdressString;
-    @FindBy(css = "input[id='compose-field-subject-4']")
+    @FindBy(css = ".ComposeSubject-TextField")
     public WebElement themeMailInput;
     @FindBy(css = "[role = 'textbox']")
     public WebElement mailContainerInput;
     @FindBy(css = "button[aria-disabled]")
     public WebElement sendMailButton;
-    @FindBy(css = "[class='control link link_theme_normal ComposeDoneScreen-Link']")
+    @FindBy(css = ".ComposeDoneScreen-Link")
     public WebElement returnMainPage;
     public int mailNumber;
 
