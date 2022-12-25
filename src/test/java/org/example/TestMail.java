@@ -2,31 +2,41 @@ package org.example;
 import org.junit.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 public class TestMail {
     public static WebDriver browser;
     public static LoginPage loginPage;
     public static MailListPage mailListPage;
-    public String yandexMailLogin = LogPassData.yandexMailLogin;
-    public String yandexMailPass = LogPassData.yandexMailPass;
-
+    public String login;
+    public String password;
+    FileInputStream loginPass;
     @Before
-    public void before(){
+    public void before() throws IOException {
         System.setProperty("webdriver.chrome.driver", ".\\lib\\chromedriver.exe");
         browser = new ChromeDriver();
         browser.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         loginPage = new LoginPage(browser);
         mailListPage = new MailListPage(browser);
+        Properties property = new Properties();
+        loginPass = new FileInputStream("src/test/java/org/example/config.properties");
+        property.load(loginPass);
+        String login = property.getProperty("mail.login");
+        String password = property.getProperty("mail.password");
+        this.login = login;
+        this.password = password;
     }
 
     @Test
     public void test(){
         browser.get("https://yandex.ru/mail");
-        loginPage.loginToYandex(yandexMailLogin,yandexMailPass);
-        int oldMailNumber = mailListPage.mailNumberGet();
+        loginPage.loginToYandex(login,password);
+        int oldMailNumber = mailListPage.actualMailCheck();
         mailListPage.sendMail("Simbir soft", Integer.toString(oldMailNumber+1));
-        int newMailNumber = mailListPage.mailNumberGet();
+        int newMailNumber = mailListPage.actualMailCheck();
         Assert.assertEquals("Test is failed. Actual mail number is wrong ", oldMailNumber+1, newMailNumber);
     }
 
