@@ -6,7 +6,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class MailListPage {
-    private final WebDriver browser;
     @FindBy(css = ".qa-LeftColumn-CountersTotal")
     public WebElement numberMails;
     @FindBy(css = "a[href='#compose']")
@@ -23,22 +22,19 @@ public class MailListPage {
     public WebElement sendMailButton;
     @FindBy(css = ".ComposeDoneScreen-Link")
     public WebElement returnMainPage;
-    public int mailNumber;
 
     public MailListPage(WebDriver browser) {
-        this.browser = browser;
         PageFactory.initElements(browser, this);
     }
 
-    public MailListPage sendMail(String themeOfMail, String oldMailsNumberStr){
+    public MailListPage sendMail(String text, String oldMailsNumberStr){
         writeNewMailButton.click();
         adressInput.click();
         myAdressString.click();
-        themeMailInput.sendKeys(themeOfMail, Keys.ENTER);
+        themeMailInput.sendKeys(text, Keys.ENTER);
         mailContainerInput.sendKeys("Найдено "+oldMailsNumberStr+" писем\\ьма", Keys.ENTER);
         sendMailButton.click();
         returnMainPage.click();
-        browser.navigate().refresh();
         return this;
     }
 
