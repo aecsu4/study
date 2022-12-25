@@ -34,9 +34,9 @@ public class TestMail {
     public void test(){
         browser.get("https://yandex.ru/mail");
         loginPage.loginToYandex(login,password);
-        int oldMailNumber = mailListPage.actualMailCheck();
+        int oldMailNumber = mailListPage.mailNumberGet();
         mailListPage.sendMail("Simbir soft", Integer.toString(oldMailNumber+1));
-        int newMailNumber = mailListPage.actualMailCheck();
+        int newMailNumber = mailListPage.mailNumberGet();
         Assert.assertEquals("Test is failed. Actual mail number is wrong ", oldMailNumber+1, newMailNumber);
     }
 
