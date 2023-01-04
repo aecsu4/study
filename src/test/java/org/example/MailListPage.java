@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class MailListPage {
-    @FindBy(css = ".qa-LeftColumn-CountersTotal")
+    @FindBy(className = "qa-LeftColumn-CountersTotal")
     public WebElement numberMails;
     @FindBy(css = "a[href='#compose']")
     public WebElement writeNewMailButton;
@@ -14,25 +14,25 @@ public class MailListPage {
     public WebElement adressInput;
     @FindBy(className = "ContactsSuggestItemDesktop")
     public WebElement myAdressString;
-    @FindBy(css = ".ComposeSubject-TextField")
+    @FindBy(className = "ComposeSubject-TextField")
     public WebElement themeMailInput;
     @FindBy(css = "[role = 'textbox']")
     public WebElement mailContainerInput;
     @FindBy(css = "button[aria-disabled]")
     public WebElement sendMailButton;
-    @FindBy(css = ".ComposeDoneScreen-Link")
+    @FindBy(className = "ComposeDoneScreen-Link")
     public WebElement returnMainPage;
 
     public MailListPage(WebDriver browser) {
         PageFactory.initElements(browser, this);
     }
 
-    public MailListPage sendMail(String text, String oldMailsNumberStr){
+    public MailListPage sendMail(String theme, String text){
         writeNewMailButton.click();
         adressInput.click();
         myAdressString.click();
-        themeMailInput.sendKeys(text, Keys.ENTER);
-        mailContainerInput.sendKeys("Найдено "+oldMailsNumberStr+" писем\\ьма", Keys.ENTER);
+        themeMailInput.sendKeys(theme, Keys.ENTER);
+        mailContainerInput.sendKeys(text, Keys.ENTER);
         sendMailButton.click();
         returnMainPage.click();
         return this;

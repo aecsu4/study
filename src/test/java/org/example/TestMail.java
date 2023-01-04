@@ -35,7 +35,8 @@ public class TestMail {
         browser.get("https://yandex.ru/mail");
         loginPage.loginToYandex(login,password);
         int oldMailNumber = mailListPage.mailNumberGet();
-        mailListPage.sendMail("Simbir soft", Integer.toString(oldMailNumber+1));
+        String text = "Найдено "+Integer.toString(oldMailNumber+1)+" писем\\ьма";
+        mailListPage.sendMail("Simbir soft",text);
         browser.navigate().refresh();
         int newMailNumber = mailListPage.mailNumberGet();
         Assert.assertEquals("Test is failed. Actual mail number is wrong ", oldMailNumber+1, newMailNumber);
