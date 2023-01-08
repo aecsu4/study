@@ -8,17 +8,17 @@ import org.openqa.selenium.support.PageFactory;
 public class MailListPage {
     @FindBy(className = "qa-LeftColumn-CountersTotal")
     public WebElement numberMails;
-    @FindBy(css = "a[href='#compose']")
+    @FindBy(css = "[href='#compose']")
     public WebElement writeNewMailButton;
-    @FindBy(css = "div[title='Кому']")
+    @FindBy(css = "[title='Кому']")
     public WebElement adressInput;
     @FindBy(className = "ContactsSuggestItemDesktop")
     public WebElement myAdressString;
     @FindBy(className = "ComposeSubject-TextField")
     public WebElement themeMailInput;
-    @FindBy(css = "[role = 'textbox']")
+    @FindBy(className = "cke_contents_ltr")
     public WebElement mailContainerInput;
-    @FindBy(css = "button[aria-disabled]")
+    @FindBy(css = "[aria-disabled='false']")
     public WebElement sendMailButton;
     @FindBy(className = "ComposeDoneScreen-Link")
     public WebElement returnMainPage;

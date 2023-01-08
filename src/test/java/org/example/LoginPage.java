@@ -7,13 +7,13 @@ import org.openqa.selenium.support.PageFactory;
 
 public class LoginPage {
     private final WebDriver browser;
-    @FindBy(css = "button[autocomplete]")
+    @FindBy(className = "PSHeader-NoLoginButton")
     private WebElement entranceToMailButton;
-    @FindBy(css = "input[id='passp-field-login']")
+    @FindBy(className = "Textinput-Control")
     private WebElement loginInput;
-    @FindBy(css = "input[name='passwd']")
+    @FindBy(css = "[name='passwd']")
     private WebElement passInput;
-    @FindBy(css = "button[data-t='button:default']")
+    @FindBy(className = "Button2_view_default")
     private WebElement loginWithMailSelector;
 
     public LoginPage(WebDriver browser) {
