@@ -5,12 +5,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class MailListPage {
+public class YandexMailListPage {
     @FindBy(className = "qa-LeftColumn-CountersTotal")
     public WebElement numberMails;
     @FindBy(css = "[href='#compose']")
     public WebElement writeNewMailButton;
-    @FindBy(css = "[title='Кому']")
+    @FindBy(className = "composeYabbles")
     public WebElement adressInput;
     @FindBy(className = "ContactsSuggestItemDesktop")
     public WebElement myAdressString;
@@ -18,16 +18,16 @@ public class MailListPage {
     public WebElement themeMailInput;
     @FindBy(className = "cke_contents_ltr")
     public WebElement mailContainerInput;
-    @FindBy(css = "[aria-disabled='false']")
+    @FindBy(className = "ComposeSendButton")
     public WebElement sendMailButton;
     @FindBy(className = "ComposeDoneScreen-Link")
     public WebElement returnMainPage;
 
-    public MailListPage(WebDriver browser) {
+    public YandexMailListPage(WebDriver browser) {
         PageFactory.initElements(browser, this);
     }
 
-    public MailListPage sendMail(String theme, String text){
+    public YandexMailListPage sendMail(String theme, String text){
         writeNewMailButton.click();
         adressInput.click();
         myAdressString.click();
@@ -38,7 +38,7 @@ public class MailListPage {
         return this;
     }
 
-    public int mailNumberGet() {
+    public int getMailsNumber() {
         return Integer.parseInt(numberMails.getText());
     }
 }

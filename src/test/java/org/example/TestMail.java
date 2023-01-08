@@ -9,36 +9,30 @@ import java.util.concurrent.TimeUnit;
 
 public class TestMail {
     public static WebDriver browser;
-    public static LoginPage loginPage;
-    public static MailListPage mailListPage;
-    public String login;
-    public String password;
-    FileInputStream loginPass;
+    public static YandexMailLoginPage yandexMailLoginPage;
+    public static YandexMailListPage yandexMailListPage;
+    public Properties property;
     @Before
     public void before() throws IOException {
         System.setProperty("webdriver.chrome.driver", ".\\lib\\chromedriver.exe");
         browser = new ChromeDriver();
         browser.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        loginPage = new LoginPage(browser);
-        mailListPage = new MailListPage(browser);
+        yandexMailLoginPage = new YandexMailLoginPage(browser);
+        yandexMailListPage = new YandexMailListPage(browser);
         Properties property = new Properties();
-        loginPass = new FileInputStream("src/test/java/org/example/config.properties");
-        property.load(loginPass);
-        String login = property.getProperty("mail.login");
-        String password = property.getProperty("mail.password");
-        this.login = login;
-        this.password = password;
+        property.load(new FileInputStream("src/test/java/org/example/config.properties"));
+        this.property = property;
     }
 
     @Test
     public void test(){
         browser.get("https://yandex.ru/mail");
-        loginPage.loginToYandex(login,password);
-        int oldMailNumber = mailListPage.mailNumberGet();
+        yandexMailLoginPage.entrance(property.getProperty("mail.login"),property.getProperty("mail.password"));
+        int oldMailNumber = yandexMailListPage.getMailsNumber();
         String text = "Найдено "+Integer.toString(oldMailNumber+1)+" писем\\ьма";
-        mailListPage.sendMail("Simbir soft",text);
+        yandexMailListPage.sendMail("Simbir soft",text);
         browser.navigate().refresh();
-        int newMailNumber = mailListPage.mailNumberGet();
+        int newMailNumber = yandexMailListPage.getMailsNumber();
         Assert.assertEquals("Test is failed. Actual mail number is wrong ", oldMailNumber+1, newMailNumber);
     }
 
