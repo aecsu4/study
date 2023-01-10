@@ -6,7 +6,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class YandexMailLoginPage {
-    private final WebDriver browser;
     @FindBy(className = "PSHeader-NoLoginButton")
     private WebElement entryMailButton;
     @FindBy(className = "Textinput-Control")
@@ -17,11 +16,10 @@ public class YandexMailLoginPage {
     private WebElement mailFormSelector;
 
     public YandexMailLoginPage(WebDriver browser) {
-        this.browser = browser;
         PageFactory.initElements(browser, this);
     }
 
-    public YandexMailLoginPage entrance(String login, String pass){
+    public YandexMailLoginPage entrance(String login, String pass) {
         entryMailButton.click();
         mailFormSelector.click();
         loginInput.sendKeys(login, Keys.ENTER);

@@ -1,5 +1,8 @@
 package org.example;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import java.io.FileInputStream;
@@ -12,6 +15,7 @@ public class TestMail {
     public static YandexMailLoginPage yandexMailLoginPage;
     public static YandexMailListPage yandexMailListPage;
     public Properties property;
+
     @Before
     public void before() throws IOException {
         System.setProperty("webdriver.chrome.driver", ".\\lib\\chromedriver.exe");
@@ -25,19 +29,19 @@ public class TestMail {
     }
 
     @Test
-    public void test(){
+    public void test() {
         browser.get("https://yandex.ru/mail");
-        yandexMailLoginPage.entrance(property.getProperty("mail.login"),property.getProperty("mail.password"));
+        yandexMailLoginPage.entrance(property.getProperty("mail.login"), property.getProperty("mail.password"));
         int oldMailNumber = yandexMailListPage.getMailsNumber();
-        String text = "Найдено "+Integer.toString(oldMailNumber+1)+" писем\\ьма";
-        yandexMailListPage.sendMail("Simbir soft",text);
+        String text = "Найдено " + (oldMailNumber + 1) + " писем\\ьма";
+        yandexMailListPage.sendMail("Simbir soft", text);
         browser.navigate().refresh();
         int newMailNumber = yandexMailListPage.getMailsNumber();
-        Assert.assertEquals("Test is failed. Actual mail number is wrong ", oldMailNumber+1, newMailNumber);
+        Assert.assertEquals("Test is failed. Actual mail number is wrong ", oldMailNumber + 1, newMailNumber);
     }
 
     @After
-    public void after(){
+    public void after() {
         browser.close();
     }
 }

@@ -27,7 +27,7 @@ public class YandexMailListPage {
         PageFactory.initElements(browser, this);
     }
 
-    public YandexMailListPage sendMail(String theme, String text){
+    public YandexMailListPage sendMail(String theme, String text) {
         writeNewMailButton.click();
         adressInput.click();
         myAdressString.click();
